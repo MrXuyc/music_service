@@ -1,0 +1,33 @@
+#多环境切换  也可以从java -jar指定参数
+spring:
+  profiles:
+    active: prod
+  datasource:
+    dirver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dbbasepro
+    username: root
+    password: 940225
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+  thymeleaf:
+    cache: false
+  freemarker:
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+
+server:
+  tomcat:
+    uri-encoding: UTF-8

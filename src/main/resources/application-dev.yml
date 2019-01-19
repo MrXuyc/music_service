@@ -1,0 +1,16 @@
+server:
+  port: 8080
+  context-path: /basepro
+
+
+
+#  常量
+cupSize: F
+age: 18
+#引入其他变量
+context: "cupSize: ${cupSize} ,age: ${age}"
+
+girl:
+  cupSize: F
+  age: 20
+
