@@ -24,7 +24,8 @@ public class UserService {
     private UserCustomRepository customRepository;
 
     public User getUserById(Integer id){
-        return userRepository.findOne(id);
+        User user = userRepository.findOne(id);
+        return user;
     }
 
     @Transactional
@@ -60,12 +61,12 @@ public class UserService {
 
     public boolean checkSamePhone(String phone) {
         //查询是否有该账号
-        User user = customRepository.findByPhone(phone);
+        User user = userRepository.findByPhone(phone);
         return user == null;
     }
 
     public boolean login(String phone, String password) {
-        User dbUser = customRepository.findByPhone(phone);
+        User dbUser = userRepository.findByPhone(phone);
         if(dbUser==null){
             return false;
         }

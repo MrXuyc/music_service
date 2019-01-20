@@ -16,8 +16,8 @@ public class SongService {
     @Resource
     private SongCustomRepository songCustomRepository;
 
-
     public Song findSongById(Integer id) {
-        return songRepository.findOne(id);
+        Song song = songRepository.findOne(id);
+        return song;
     }
 }

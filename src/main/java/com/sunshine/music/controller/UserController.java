@@ -1,6 +1,8 @@
 package com.sunshine.music.controller;
 
 
+import com.google.common.base.Strings;
+
 import com.sunshine.music.common.Const;
 import com.sunshine.music.entity.User;
 import com.sunshine.music.service.UserService;
@@ -42,10 +44,10 @@ public class UserController {
     /**
      * 根据id查询用户
      */
-    @GetMapping("/user/query/{id}")
+    @GetMapping("/user/query/id/{id}")
     public Result queryUser(@PathVariable(value = "id") Integer id, HttpSession session){
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
-        if(currentUser==null){
+        String phone = (String) session.getAttribute(Const.CURRENT_USER);
+        if(Strings.isNullOrEmpty(phone)){
             return ResultUtil.error("用户未登陆，需要强制登录");
         }
         User user = userService.getUserById(id);
@@ -55,7 +57,7 @@ public class UserController {
     /**
      * 验证手机号是否注册
      */
-    @GetMapping("/user/query/{phone}")
+    @GetMapping("/user/query/phone/{phone}")
     public Result queryUserByPhone(@PathVariable(value = "phone") String phone){
         //
         boolean checkFlag = userService.checkSamePhone(phone);

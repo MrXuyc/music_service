@@ -20,6 +20,7 @@ public class Song {
 
     private String name;
 
+    @JSONField(serialize = false)
     private String resourcePath;
     /**
      * 时长

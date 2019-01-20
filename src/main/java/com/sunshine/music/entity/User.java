@@ -33,6 +33,7 @@ public class User {
     private Integer age;
 
     @NotNull(message = "请填写密码")
+    @JSONField(serialize = false)
     private String password;
 
     @NotNull(message = "请填写电子邮箱，方便验证身份")
