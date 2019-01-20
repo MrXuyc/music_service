@@ -2,20 +2,18 @@ package com.sunshine.music.util;
 
 public class ResultUtil {
     public static Result success(Object data){
-        Result result=new Result("1","success",data);
-        result.setCode("1");
-        result.setMsg("success");
-        result.setData(data);
-        return result;
+        return new Result(ResultEnum.SUCCESS.getCode(),ResultEnum.SUCCESS.getMsg(),data);
     }
 
     public static Result success(){
-        Result result=new Result("1","success");
-        return result;
+        return new Result(ResultEnum.SUCCESS.getCode(),ResultEnum.SUCCESS.getMsg());
     }
 
-    public static Result error(String code, String msg){
-        Result result=new Result(code,msg);
-        return result;
+    public static Result error(){
+        return new Result(ResultEnum.UNKOWN_ERROR.getCode(),ResultEnum.UNKOWN_ERROR.getMsg());
+    }
+
+    public static Result error(String msg){
+        return new Result(ResultEnum.UNKOWN_ERROR.getCode(),msg);
     }
 }

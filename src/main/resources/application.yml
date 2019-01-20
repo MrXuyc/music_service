@@ -34,3 +34,6 @@ threadPool:
   maximumPoolSize : 50
   keepAliveTime : 600
   capacity : 700
+
+password:
+  salt : 123456

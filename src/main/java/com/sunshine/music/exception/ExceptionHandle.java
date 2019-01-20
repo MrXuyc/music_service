@@ -24,10 +24,10 @@ public class ExceptionHandle {
     @ResponseBody
     public Result handle(Exception e){
         if(e instanceof  CustomException){
-            return  ResultUtil.error(((CustomException)e).getCode(),e.getMessage());
+            return  ResultUtil.error(e.getMessage());
         }
         logger.info("系统异常 {}",e);
-        return ResultUtil.error("-1","未知错误");
+        return ResultUtil.error("未知错误");
     }
 
 }

@@ -1,6 +1,11 @@
 package com.sunshine.music.common;
 
 public class Const {
+
+    //登录标识
+    public static final String CURRENT_USER="currentUser";
+
+
     public enum Status{
         onLine(1,"在线"),
         offLine(0,"下线");
@@ -16,16 +21,10 @@ public class Const {
             return code;
         }
 
-        public void setCode(int code) {
-            this.code = code;
-        }
-
         public String getMsg() {
             return msg;
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
     }
+
 }

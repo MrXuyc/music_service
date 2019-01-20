@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Slf4j
 public class HttpAspect {
-    @Pointcut("execution(public * com.sunshine.music.controller.UserController.*(..))")
+    @Pointcut("execution(public * com.sunshine.music.controller.*.*(..))")
     public void log(){}
 
     @Before("log()")

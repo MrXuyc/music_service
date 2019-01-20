@@ -1,63 +1,76 @@
 package com.sunshine.music.service;
 
-import com.sunshine.music.dao.CustomRepository;
-import com.sunshine.music.dao.UserDao;
+import com.sunshine.music.common.Const;
+import com.sunshine.music.dao.UserCustomRepository;
 import com.sunshine.music.dao.UserRepository;
 import com.sunshine.music.entity.User;
-import com.sunshine.music.mapper.UserMapper;
-import com.sunshine.music.util.Result;
+import com.sunshine.music.util.Md5Util;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
+
+import java.util.Date;
+
 
 @Service
 public class UserService {
     @Resource
     private UserRepository userRepository;
-    @Resource
-    private CustomRepository customRepository;
-    @Resource
-    private UserDao userDao;
 
     @Resource
-    private UserMapper userMapper;
-
+    private UserCustomRepository customRepository;
 
     public User getUserById(Integer id){
         return userRepository.findOne(id);
     }
 
     @Transactional
-    public User addUser(User user){
-        return userRepository.save(user);
-    }
-    @Transactional
-    public User UpdateUser(User user){
-        return userRepository.save(user);
-    }
-    @Transactional
-    public void deleteUser(Integer id){
-        userRepository.delete(id);
-    }
-
-    public User findUserByName(String name){
-        return customRepository.findByNameCustom(name);
-    }
-
-    public User findUserByDaoName(String name){
-        return userDao.selectUserByName(name);
+    public boolean saveUser(User user){
+        //验证该手机号是否已经注册了
+        if(checkSamePhone(user.getPhone())){
+            //md5加密密码
+            String encodePassword = Md5Util.MD5EncodeUtf8(user.getPassword());
+            user.setPassword(encodePassword);
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
+            user.setStatus(Const.Status.onLine.getCode());
+            userRepository.save(user);
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    @Transactional
-    public void saveUser(User user){
-        userMapper.save(user);
+    public void onLineUser(Integer id) {
+        User user = userRepository.findOne(id);
+        user.setUpdateTime(new Date());
+        user.setStatus(Const.Status.onLine.getCode());
+        userRepository.save(user);
     }
 
-    public List<User> findUserByNameMapper(String name){
-        return userMapper.likeName(name);
+    public void offLineUser(Integer id) {
+        User user = userRepository.findOne(id);
+        user.setUpdateTime(new Date());
+        user.setStatus(Const.Status.offLine.getCode());
+        userRepository.save(user);
     }
 
+    public boolean checkSamePhone(String phone) {
+        //查询是否有该账号
+        User user = customRepository.findByPhone(phone);
+        return user == null;
+    }
+
+    public boolean login(String phone, String password) {
+        User dbUser = customRepository.findByPhone(phone);
+        if(dbUser==null){
+            return false;
+        }
+        //判断是否相等
+        String md5Password = Md5Util.MD5EncodeUtf8(password);
+        return dbUser.getPassword().equals(md5Password);
+    }
 }
