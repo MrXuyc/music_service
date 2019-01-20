@@ -1,16 +1,8 @@
 #多环境切换  也可以从java -jar指定参数
 spring:
   profiles:
-    active: prod
-  datasource:
-    dirver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dbbasepro
-    username: root
-    password: 940225
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    active: dev
+    include: db
   http:
     encoding:
       charset: utf-8
@@ -27,7 +19,18 @@ spring:
     expose-request-attributes: false
     expose-session-attributes: false
     expose-spring-macro-helpers: false
-
 server:
   tomcat:
     uri-encoding: UTF-8
+logging:
+  config: classpath:logging-config.xml
+
+logback:
+  logdir: /home/q/www/music_service
+  appname: music_service
+
+threadPool:
+  corePoolSize : 10
+  maximumPoolSize : 50
+  keepAliveTime : 600
+  capacity : 700

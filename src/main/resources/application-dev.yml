@@ -1,16 +1,17 @@
 server:
   port: 8080
-  context-path: /basepro
+  context-path: /music
 
-
+logging:
+  config: classpath:logging-config.xml
 
 #  常量
-cupSize: F
+name: F
 age: 18
 #引入其他变量
-context: "cupSize: ${cupSize} ,age: ${age}"
+context: "name: ${name} ,age: ${age}"
 
 girl:
-  cupSize: F
+  name: F
   age: 20
 
